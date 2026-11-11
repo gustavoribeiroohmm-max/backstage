@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "banda" ALTER COLUMN "descricao" DROP NOT NULL,
+ALTER COLUMN "genero" DROP NOT NULL,
+ALTER COLUMN "cidade" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "perfil" ALTER COLUMN "generos" DROP NOT NULL,
+ALTER COLUMN "biografia" DROP NOT NULL;

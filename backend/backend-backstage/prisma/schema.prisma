@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id_usuario    Int            @id @default(autoincrement())
+  nome          String
+  email         String         @unique
+  senha         String
+  perfil        Perfil?
+  bandas        Banda[]
+  oportunidades Oportunidade[]
+
+  @@map("usuario")
+}
+
+model Perfil {
+  id_perfil      Int     @id @default(autoincrement())
+  id_usuario     Int     @unique
+  nome_artistico String
+  cidade         String
+  instrumentos   String
+  generos        String? // Opcional
+  biografia      String? // Opcional
+
+  usuario Usuario @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade)
+
+  @@map("perfil")
+}
+
+model Banda {
+  id_banda   Int     @id @default(autoincrement())
+  id_criador Int
+  nome_banda String
+  descricao  String? // Opcional
+  genero     String? // Opcional
+  cidade     String? // Opcional
+
+  criador Usuario @relation(fields: [id_criador], references: [id_usuario], onDelete: Cascade)
+
+  @@map("banda")
+}
+
+model Oportunidade {
+  id_oportunidade       Int    @id @default(autoincrement())
+  id_anunciante         Int
+  titulo                String
+  descricao             String
+  cidade                String
+  instrumento_procurado String
+
+  anunciante Usuario @relation(fields: [id_anunciante], references: [id_usuario], onDelete: Cascade)
+
+  @@map("oportunidade")
+}
