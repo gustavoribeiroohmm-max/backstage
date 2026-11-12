@@ -9,23 +9,25 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // ou 'user'
+    // Verifica se o token ou o usuário existem no localStorage
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
 
-    if (!token) {
-      router.push('/login');
+    if (!token && !user) {
+      router.replace('/login'); // Usar replace evita voltar no histórico
     } else {
-      setIsAuthorized(true);
+      setIsAuthenticated(true);
     }
   }, [router]);
 
-  // Enquanto o useEffect valida o token, mostra uma tela vazia ou um loading simples
-  // Isso impede que a tela do dashboard apareça por um segundo antes de expulsar
-  if (!isAuthorized) {
+  // Se não estiver autenticado, retorna uma tela totalmente preta/vazia.
+  // Isso impede que o painel do dashboard apareça na tela por um segundo.
+  if (!isAuthenticated) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#121212', color: '#fff' }}>
+      <div style={{ background: '#121212', width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
         <p>Carregando...</p>
       </div>
     );
