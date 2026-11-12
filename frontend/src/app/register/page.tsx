@@ -22,7 +22,6 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      // Ajuste o endpoint se no seu controller for /api/user ou /api/usuarios
       const response = await fetch('/api/user', {
         method: 'POST',
         headers: {
@@ -31,7 +30,7 @@ export default function RegisterPage() {
         body: JSON.stringify({
           nome,
           email,
-          senha: password, // Mantendo 'senha' para casar com o DTO do seu back-end
+          senha: password,
         }),
       });
 

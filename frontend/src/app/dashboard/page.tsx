@@ -126,7 +126,7 @@ export default function DashboardPage() {
 
           {/* Card / Módulo de Perfil */}
           <Link
-            href="/dashboard/perfil" // 👈 Alterado de /dashboard/meu_perfil para /dashboard/perfil
+            href="/dashboard/perfil" 
             className="bg-[#16161a] hover:bg-[#1a1a20] border border-gray-800 hover:border-red-500/40 rounded-2xl p-6 transition flex flex-col justify-between space-y-4 group shadow-xl"
           >
             <div className="space-y-2">
